@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Musical Modes Generator</title>
+    <script src="js/mode.js"></script>
+    <script src="js/site.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3 text-center">
+            <div class="container">
+                <a class="navbar-brand centered">Musical Modes Generator</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="card border-secondary mb-3">
+                <div class="card-body">
+                    <div>
+                        <p class="text-muted">Use the inputs below to select a scale and generate its seven modes</p>
+                    </div>
+
+                    <div>
+                        <fieldset>
+                            <legend>Select Scale</legend>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-2">
+                                    <div class="form-group">
+                                        <label for="tonicSelect">Tonic</label>
+                                        <select class="form-control" id="tonicSelect">
+                                            <option value="0">A</option>
+                                            <option value="1">A&#x266F;/B&#x266D;</option>
+                                            <option value="2">B</option>
+                                            <option value="3">C</option>
+                                            <option value="4">C&#x266F;/D&#x266D;</option>
+                                            <option value="5">D</option>
+                                            <option value="6">D&#x266F;/E&#x266D;</option>
+                                            <option value="7">E</option>
+                                            <option value="8">F</option>
+                                            <option value="9">F&#x266F;/G&#x266D;</option>
+                                            <option value="10">G</option>
+                                            <option value="11">G&#x266F;/A&#x266D;</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label for="scaleSelect">Scale Type</label>
+                                        <select class="form-control" id="scaleSelect">
+                                            <option value="0">Major</option>
+                                            <option value="1">Harmonic Major</option>
+                                            <option value="2">Double Harmonic Major</option>
+                                            <option value="3">Harmonic Minor</option>
+                                            <option value="4">Melodic Minor</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <fieldset class="form-group">
+                                <legend>Method</legend>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optionsMethod" id="method" value="" checked="">
+                                        Parallel
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optionsMethod" id="" value="">
+                                        Relative
+                                    </label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="form-group">
+                                <legend>Preferred Alteration</legend>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optionsAlt" id="alteration" value="" checked="">
+                                        Sharps
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optionsAlt" id="" value="">
+                                        Flats
+                                    </label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="form-group">
+                                <legend>Display Options</legend>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" id="romanNumerals" value="" checked="">
+                                        Chords and Degrees as Roman Numerals
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" id="octave" value="" checked="">
+                                        Full Octave
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" id="intervals" value="" checked="">
+                                        Intervals
+                                    </label>
+                                </div>
+                            </fieldset>
+
+                            <button type="button" class="btn btn-warning"
+                                    onclick="createModes(document.getElementById('tonicSelect').value,
+                    document.getElementById('scaleSelect').value,
+                    document.getElementById('method').checked,
+                    document.getElementById('alteration').checked,
+                    document.getElementById('romanNumerals').checked,
+                    document.getElementById('octave').checked,
+                    document.getElementById('intervals').checked)">
+                                Generate
+                            </button>
+
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modes" id="modes"></div>
+            <div class="text-center" id="print"></div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-center text-muted">
+        <div class="container">
+            &copy 2021 Musical Modes Generator
+        </div>
+    </footer>
+</body>
+</html>
