@@ -252,7 +252,7 @@ class Mode {
                         break;
                     case 4:
                         this.alterations[2] = flat;
-                        this.alterations[3] = flat;
+                        this.alterations[3] = sharp;
                         this.alterations[6] = flat;
                         break;
                     case 5:
