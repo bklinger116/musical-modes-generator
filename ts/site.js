@@ -1,16 +1,19 @@
-﻿//TODO: scaleType string -> number
-enum ScaleType { Major, HarmonicMajor, DoubleHarmonicMajor, HarmonicMinor, MelodicMinor }
-
-function createModes(tonicInput: string, scaleTypeInput: string, isParallelVisible: boolean, isSharpsVisible: boolean, isNumeralsVisible: boolean, isOctaveVisible: boolean, isIntervalsVisible: boolean) {
-    let chrom: string[];
-    let scaleName: string;
-    let modeNames: string[];
-    let scaleChords: string[];
-    let scaleIntervals: number[];
-
-    let tonic: number = parseInt(tonicInput, 10);
-    let scaleType: number = parseInt(scaleTypeInput, 10);
-
+var ScaleType;
+(function (ScaleType) {
+    ScaleType[ScaleType["Major"] = 0] = "Major";
+    ScaleType[ScaleType["HarmonicMajor"] = 1] = "HarmonicMajor";
+    ScaleType[ScaleType["DoubleHarmonicMajor"] = 2] = "DoubleHarmonicMajor";
+    ScaleType[ScaleType["HarmonicMinor"] = 3] = "HarmonicMinor";
+    ScaleType[ScaleType["MelodicMinor"] = 4] = "MelodicMinor";
+})(ScaleType || (ScaleType = {}));
+function createModes(tonicInput, scaleTypeInput, isParallelVisible, isSharpsVisible, isNumeralsVisible, isOctaveVisible, isIntervalsVisible) {
+    var chrom;
+    var scaleName;
+    var modeNames;
+    var scaleChords;
+    var scaleIntervals;
+    var tonic = parseInt(tonicInput, 10);
+    var scaleType = parseInt(scaleTypeInput, 10);
     switch (scaleType) {
         case ScaleType.Major:
             scaleName = "Major";
@@ -42,196 +45,171 @@ function createModes(tonicInput: string, scaleTypeInput: string, isParallelVisib
             scaleChords = ["Min", "Min", "Aug", "Maj", "Maj", "Dim", "Dim"];
             scaleIntervals = [2, 1, 2, 2, 2, 2, 1];
     }
-
     if (isSharpsVisible) {
         chrom = ["A", "A&#x266F;", "B", "C", "C&#x266F;", "D", "D&#x266F;", "E", "F", "F&#x266F;", "G", "G&#x266F;"];
-    } else {
+    }
+    else {
         chrom = ["A", "B&#x266D;", "B", "C", "D&#x266D;", "D", "E&#x266D;", "E", "F", "G&#x266D;", "G", "A&#x266D;"];
     }
-
-    let modeOne = new Mode(1, chrom, tonic, scaleType, scaleName, isParallelVisible, scaleIntervals, scaleChords, modeNames);
-    let modeTwo = new Mode(2, chrom, tonic, scaleType, scaleName, isParallelVisible, scaleIntervals, scaleChords, modeNames);
-    let modeThree = new Mode(3, chrom, tonic, scaleType, scaleName, isParallelVisible, scaleIntervals, scaleChords, modeNames);
-    let modeFour = new Mode(4, chrom, tonic, scaleType, scaleName, isParallelVisible, scaleIntervals, scaleChords, modeNames);
-    let modeFive = new Mode(5, chrom, tonic, scaleType, scaleName, isParallelVisible, scaleIntervals, scaleChords, modeNames);
-    let modeSix = new Mode(6, chrom, tonic, scaleType, scaleName, isParallelVisible, scaleIntervals, scaleChords, modeNames);
-    let modeSeven = new Mode(7, chrom, tonic, scaleType, scaleName, isParallelVisible, scaleIntervals, scaleChords, modeNames);
-
-    let modeObjs: Mode[] = [modeOne, modeTwo, modeThree, modeFour, modeFive, modeSix, modeSeven];
-
+    var modeOne = new Mode(1, chrom, tonic, scaleType, scaleName, isParallelVisible, scaleIntervals, scaleChords, modeNames);
+    var modeTwo = new Mode(2, chrom, tonic, scaleType, scaleName, isParallelVisible, scaleIntervals, scaleChords, modeNames);
+    var modeThree = new Mode(3, chrom, tonic, scaleType, scaleName, isParallelVisible, scaleIntervals, scaleChords, modeNames);
+    var modeFour = new Mode(4, chrom, tonic, scaleType, scaleName, isParallelVisible, scaleIntervals, scaleChords, modeNames);
+    var modeFive = new Mode(5, chrom, tonic, scaleType, scaleName, isParallelVisible, scaleIntervals, scaleChords, modeNames);
+    var modeSix = new Mode(6, chrom, tonic, scaleType, scaleName, isParallelVisible, scaleIntervals, scaleChords, modeNames);
+    var modeSeven = new Mode(7, chrom, tonic, scaleType, scaleName, isParallelVisible, scaleIntervals, scaleChords, modeNames);
+    var modeObjs = [modeOne, modeTwo, modeThree, modeFour, modeFive, modeSix, modeSeven];
     document.getElementById("modes").innerHTML =
         outputTitle(chrom, tonic, scaleName, isParallelVisible) +
-        outputAllModes(modeObjs, isOctaveVisible, isNumeralsVisible, isIntervalsVisible);
-
+            outputAllModes(modeObjs, isOctaveVisible, isNumeralsVisible, isIntervalsVisible);
     document.getElementById("print").innerHTML = outputPrintButton();
 }
-
-function outputTitle(chrom: string[], tonic: number, scaleName: string, isParallelVisible: boolean) {
-    let modeMethod: string;
-
+function outputTitle(chrom, tonic, scaleName, isParallelVisible) {
+    var modeMethod;
     if (isParallelVisible) {
         modeMethod = "Parallel";
-    } else {
+    }
+    else {
         modeMethod = "Relative";
     }
-
-    let codeBlock: string = '<div class="title text-center">' +
+    var codeBlock = '<div class="title text-center">' +
         '<h3 class=""> The ' + modeMethod + ' Modes of ' + chrom[tonic] + ' ' + scaleName + '</h3>' +
         '</div>';
-
     return codeBlock;
 }
-
-function outputAllModes(modeObjs: Mode[], isOctaveVisible: boolean, isNumeralsVisible: boolean, isIntervalsVisible: boolean) {
-    let codeBlock: string = "";
-
+function outputAllModes(modeObjs, isOctaveVisible, isNumeralsVisible, isIntervalsVisible) {
+    var codeBlock = "";
     for (var i = 1; i < 8; i++) {
         codeBlock += outputSingleMode(modeObjs[i - 1], isOctaveVisible, isNumeralsVisible, isIntervalsVisible);
     }
-
     return codeBlock;
 }
-
-function outputSingleMode(mode: Mode, isOctaveVisible: boolean, isNumeralsVisible: boolean, isIntervalsVisible: boolean) {
+function outputSingleMode(mode, isOctaveVisible, isNumeralsVisible, isIntervalsVisible) {
     var degrees;
     var intervals;
-
     if (isNumeralsVisible) {
         degrees = outputDegreesNumerals(mode, isOctaveVisible);
-    } else {
+    }
+    else {
         degrees = outputDegrees(mode, isOctaveVisible);
     }
-
     if (isIntervalsVisible) {
         intervals = outputIntervals(mode);
-    } else {
+    }
+    else {
         intervals = "";
     }
-
-    let codeBlock: string = '<div class="single-mode">' +
-        '<div class="row">' +           // Begin row one
+    var codeBlock = '<div class="single-mode">' +
+        '<div class="row">' +
         '<div class="name"><h5>' + mode.name + '</h5><h6 class="text-muted"><i>' + mode.subtitle + '</i></h6></div>' + degrees +
-        '</div>' +                      // End row one
-        '<div class="row">' +           // Begin row two
+        '</div>' +
+        '<div class="row">' +
         '<div class="collapse-interval-ninth"></div>' +
         '<div class="outer-buffer"></div>' +
         '<div class="inner-buffer"></div>' +
         intervals +
         '<div class="inner-buffer"></div>' +
         '<div class="outer-buffer"></div>' +
-        '</div>' +                        // End row two
+        '</div>' +
         '</div>';
-
     return codeBlock;
 }
-
-function outputDegreesNumerals(mode: Mode, isOctabeVisible: boolean) {
-    let codeBlock: string = "";
-    let diff: string = "";
-
+function outputDegreesNumerals(mode, isOctabeVisible) {
+    var codeBlock = "";
+    var diff = "";
     for (var i = 0; i < 7; i++) {
         if (mode.hasDifferentDegrees[i]) {
             diff = "text-warning";
-        } else {
+        }
+        else {
             diff = "text-muted";
         }
-
         codeBlock += '<div class="degree text-center">' +
             '<h4 class="' + diff + '">' + mode.romanNumerals[i] + '</h4>' +
             '<h2>' + mode.notes[i] + '</h2>' +
             '</div>';
     }
-
     if (isOctabeVisible) {
         if (mode.hasDifferentDegrees[0]) {
             diff = "text-warning";
-        } else {
+        }
+        else {
             diff = "text-muted";
         }
-
         codeBlock += '<div class="degree text-center">' +
             '<h4 class="' + diff + '">' + mode.romanNumerals[0] + '</h4>' +
             '<h2>' + mode.notes[0] + '</h2>' +
             '</div>';
-    } else {
+    }
+    else {
         codeBlock += '<div class="degree text-center">' +
             '<h4></h4>' +
             '<h2></h2>' +
             '</div>';
     }
-
     return codeBlock;
 }
-
-function outputDegrees(mode: Mode, isOctaveVisible: boolean) {
-    let codeBlock: string = "";
-    let diff: string = "";
-
+function outputDegrees(mode, isOctaveVisible) {
+    var codeBlock = "";
+    var diff = "";
     for (var i = 0; i < 7; i++) {
         if (mode.hasDifferentDegrees[i]) {
             diff = "text-warning";
-        } else {
+        }
+        else {
             diff = "text-muted";
         }
-
         codeBlock += '<div class="degree text-center">' +
             '<h6 class="text-muted text-uppercase">' + mode.chords[i] + '</h6>' +
             '<h2>' + mode.notes[i] + '</h2>' +
             '<h5 class="' + diff + '">' + mode.degrees[i] + '</h5>' +
             '</div>';
     }
-
     if (isOctaveVisible) {
         if (mode.hasDifferentDegrees[i]) {
             diff = "tex-warning";
-        } else {
+        }
+        else {
             diff = "text-muted";
         }
-
         codeBlock += '<div class="degree text-center">' +
             '<h6 class="text-muted text-uppercase">' + mode.chords[0] + '</h6>' +
             '<h2>' + mode.notes[0] + '</h2>' +
             '<h5 class="' + diff + '">' + '8' + '</h5>' +
             '</div>';
-    } else {
+    }
+    else {
         codeBlock += '<div class="degree text-center">' +
             '<h6></h6>' +
             '<h2></h2>' +
             '<h5></h5>' +
             '</div>';
     }
-
     return codeBlock;
 }
-
-function outputIntervals(mode: Mode) {
-    let codeBlock: string = '<div class="interval text-center">' +
+function outputIntervals(mode) {
+    var codeBlock = '<div class="interval text-center">' +
         '<h6>' + mode.semitones[0] + '</h6>' +
         '</div >';
-
     for (var i = 1; i < 7; i++) {
         codeBlock += '<div class="interval text-center"><h6>⁠—</h6></div>' +
             '<div class="interval text-center">' +
             '<h6>' + mode.semitones[i] + '</h6>' +
             '</div >';
     }
-
     return codeBlock;
 }
-
 function printContent() {
-    let restorePage: string = document.body.innerHTML;
-    let printContent: string = '<div class="container">' +
+    var restorePage = document.body.innerHTML;
+    var printContent = '<div class="container">' +
         document.getElementById("modes").innerHTML +
         '</div>';
-
     document.body.innerHTML = printContent;
     window.print();
     document.body.innerHTML = restorePage;
 }
-
 function outputPrintButton() {
-    let codeBlock: string = '<button type="button" class="btn btn-secondary" onclick="printContent()">Print These Modes</button>';
-
+    var codeBlock = '<button type="button" class="btn btn-secondary" onclick="printContent()">Print These Modes</button>';
     return codeBlock;
 }
+//# sourceMappingURL=site.js.map
