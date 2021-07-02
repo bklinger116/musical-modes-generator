@@ -1,4 +1,3 @@
-﻿//TODO: scaleType string -> number
 enum ScaleType { Major, HarmonicMajor, DoubleHarmonicMajor, HarmonicMinor, MelodicMinor }
 
 function createModes(tonicInput: string, scaleTypeInput: string, isParallelVisible: boolean, isSharpsVisible: boolean, isNumeralsVisible: boolean, isOctaveVisible: boolean, isIntervalsVisible: boolean) {
